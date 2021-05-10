@@ -1,3 +1,10 @@
+# User management
+![alt tag](https://github.com/zmievskiy/web-crud/blob/main/screenshots/context_menu.png)
+# Create user
+![alt tag](https://github.com/zmievskiy/web-crud/blob/main/screenshots/create_user.png)
+# Create car
+![alt tag](https://github.com/zmievskiy/web-crud/blob/main/screenshots/create_car.png)
+
 # WebCRUD
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.4.
