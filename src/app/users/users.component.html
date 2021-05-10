@@ -1,0 +1,49 @@
+<button class="btn btn-primary w-100" [routerLink]="['/user', 'create']">
+  Создать
+</button>
+<div class="container-fluid p-4">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Отчетство</th>
+      <th scope="col">Кол-во ТС</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users$ | async; let i = index" [contextMenu]="basicMenu"
+        [contextMenuSubject]="user">
+      <th scope="row">
+        {{ user.id }}
+      </th>
+      <td>
+        {{ user.name }}
+      </td>
+      <td>
+        {{ user.surname }}
+      </td>
+      <td>
+        {{ user.patronymic }}
+      </td>
+      <td>
+        <span *ngIf="user.cars.length">{{user.cars.length}}</span>
+        <span  *ngIf="!user.cars.length">0</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<context-menu #basicMenu>
+  <ng-template contextMenuItem let-user>
+    <button class="btn btn-light w-100" [routerLink]="['/user', 'edit', user.id]">
+      Редактировать
+    </button>
+    <button class="btn btn-light w-100" [routerLink]="['/user', 'view', user.id]">
+      Просмотреть
+    </button>
+  </ng-template>
+</context-menu>
+

@@ -1,0 +1,99 @@
+<div class="container-fluid p-4">
+  <ngb-toast *ngIf="showToast" header="Ошибка" [autohide]="false" (hidden)="showToast = false">
+    Вы уже владеете данным автомобилем
+  </ngb-toast>
+
+  <form [formGroup]="formGroup">
+    <div class="form-row">
+      <div class="form-group col-sm-4">
+        <div class="input-group input-group-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Имя</span>
+          </div>
+          <input type="text" class="form-control" formControlName="name">
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <div class="input-group input-group-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Фамилия</span>
+          </div>
+          <input type="text" class="form-control" formControlName="surname">
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <div class="input-group input-group-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Отчество</span>
+          </div>
+          <input type="text" class="form-control" formControlName="patronymic">
+        </div>
+      </div>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Производитель</th>
+        <th scope="col">Модель</th>
+        <th scope="col">Гос. номер</th>
+        <th scope="col">Год выпуска</th>
+        <th scope="col">Удалить</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let car of ownedCars; let i = index">
+        <th scope="row">
+          {{ car.id }}
+        </th>
+        <td>
+          {{ car.manufacturer }}
+        </td>
+        <td>
+          {{ car.model }}
+        </td>
+        <td>
+          {{ car.state_number }}
+        </td>
+        <td>
+          {{ car.production_year }}
+        </td>
+        <td>
+          <button class="btn btn-danger" [disabled]="mode == 'view'" (click)="ownedCars.splice(i, 1)">Удалить</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="form-row">
+      <div class="form-group col-sm-12">
+        <div class="input-group input-group-sm">
+
+          <div class="input-group-prepend">
+          <span class="input-group-text">
+            Авто
+          </span>
+          </div>
+          <select class="form-control" [(ngModel)]="carId" [ngModelOptions]="{standalone: true}"
+                  [disabled]="mode == 'view'">
+            <option *ngFor="let car of cars$ | async" [value]="car.id">{{car.manufacturer}} | {{car.model}}
+              | {{car.production_year}} | {{car.state_number}}</option>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-dark" (click)="getCarById()" [disabled]="!carId || loader">Добавить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-success" *ngIf="mode == 'edit'" (click)="updateUser()"
+    >Обновить
+    </button>
+    <button class="btn btn-success" *ngIf="mode == 'create'" (click)="createUser()"
+            [disabled]="formGroup.invalid">Создать
+    </button>
+    <button class="btn btn-dark ml-2" routerLink="/"
+    >Назад
+    </button>
+  </form>
+</div>

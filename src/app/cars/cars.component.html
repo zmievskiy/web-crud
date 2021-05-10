@@ -1,0 +1,34 @@
+<div class="container-fluid p-4">
+  <app-car-info (newCar)="updateList($event)"></app-car-info>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Модель</th>
+      <th>Производитель</th>
+      <th>Гос. номер</th>
+      <th>Год выпуска</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let car of cars$ | async">
+      <td>
+        {{car.id}}
+      </td>
+      <td>
+        {{car.model}}
+      </td>
+      <td>
+        {{car.manufacturer}}
+      </td>
+      <td>
+        {{car.state_number}}
+      </td>
+      <td>
+        {{car.production_year}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
